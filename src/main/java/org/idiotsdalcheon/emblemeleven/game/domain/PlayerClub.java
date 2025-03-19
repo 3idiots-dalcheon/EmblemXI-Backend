@@ -6,7 +6,9 @@ import lombok.*;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 @Getter
+@Setter
 @Table(name = "player_club")
 public class PlayerClub {
     @Id

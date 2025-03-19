@@ -9,7 +9,9 @@ import java.util.List;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 @Getter
+@Setter
 @Table(name = "club")
 public class Club {
     @Id
@@ -23,5 +25,6 @@ public class Club {
     private String emblemUrl;
 
     @OneToMany(mappedBy = "club", fetch = FetchType.EAGER)
+    @Builder.Default
     private List<PlayerClub> playerClubs = new ArrayList<>();
 }
