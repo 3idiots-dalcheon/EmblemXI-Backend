@@ -10,5 +10,5 @@ import java.util.List;
 public class PlayerDto {
     private String playerName;
     private String playerUrl;
-    private List<ClubDto> clubList;
+    private List<String> clubName;
 }

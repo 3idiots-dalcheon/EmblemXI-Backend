@@ -3,7 +3,6 @@ package org.idiotsdalcheon.emblemeleven.game.service;
 import lombok.RequiredArgsConstructor;
 import org.idiotsdalcheon.emblemeleven.game.dao.PlayerRepository;
 import org.idiotsdalcheon.emblemeleven.game.domain.Player;
-import org.idiotsdalcheon.emblemeleven.game.dto.ClubDto;
 import org.idiotsdalcheon.emblemeleven.game.dto.PlayerDto;
 import org.idiotsdalcheon.emblemeleven.game.dto.PlayerInfoResponse;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +16,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
     private final PlayerRepository playerRepository;
+
+    // 순서 보장 로직 추가
     @Override
     public PlayerInfoResponse getRandomPlayerInfo(int cnt) {
         long total = playerRepository.count();
@@ -34,8 +35,8 @@ public class PlayerServiceImpl implements PlayerService {
                     String playerName = player.getName();
                     String playerUrl = player.getPhotoUrl();
 
-                    List<ClubDto> clubList = player.getPlayerClubs().stream()
-                            .map(pc -> new ClubDto(pc.getClub().getName(), pc.getClub().getEmblemUrl()))
+                    List<String> clubList = player.getPlayerClubs().stream()
+                            .map(pc -> pc.getClub().getName())
                             .collect(Collectors.toList());
 
                     return new PlayerDto(playerName, playerUrl, clubList);
