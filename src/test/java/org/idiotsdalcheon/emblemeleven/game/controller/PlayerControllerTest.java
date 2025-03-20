@@ -79,35 +79,35 @@ class PlayerControllerTest {
                 .photoUrl("lewandowski.jpg")
                 .build();
 
-        PlayerClub playerClub1_1 = PlayerClub.builder().player(player1).club(club1).build();
-        PlayerClub playerClub1_2 = PlayerClub.builder().player(player1).club(club2).build();
+        PlayerClub playerClub1_1 = PlayerClub.builder().player(player1).club(club1).order(2).build();
+        PlayerClub playerClub1_2 = PlayerClub.builder().player(player1).club(club2).order(1).build();
 
-        PlayerClub playerClub2_1 = PlayerClub.builder().player(player2).club(club3).build();
-        PlayerClub playerClub2_2 = PlayerClub.builder().player(player2).club(club4).build();
+        PlayerClub playerClub2_1 = PlayerClub.builder().player(player2).club(club3).order(1).build();
+        PlayerClub playerClub2_2 = PlayerClub.builder().player(player2).club(club4).order(2).build();
 
-        PlayerClub playerClub3_1 = PlayerClub.builder().player(player3).club(club5).build();
-        PlayerClub playerClub3_2 = PlayerClub.builder().player(player3).club(club6).build();
+        PlayerClub playerClub3_1 = PlayerClub.builder().player(player3).club(club5).order(1).build();
+        PlayerClub playerClub3_2 = PlayerClub.builder().player(player3).club(club6).order(2).build();
 
-        PlayerClub playerClub4_1 = PlayerClub.builder().player(player4).club(club7).build();
-        PlayerClub playerClub4_2 = PlayerClub.builder().player(player4).club(club8).build();
+        PlayerClub playerClub4_1 = PlayerClub.builder().player(player4).club(club7).order(1).build();
+        PlayerClub playerClub4_2 = PlayerClub.builder().player(player4).club(club8).order(2).build();
 
-        PlayerClub playerClub5_1 = PlayerClub.builder().player(player5).club(club9).build();
-        PlayerClub playerClub5_2 = PlayerClub.builder().player(player5).club(club10).build();
+        PlayerClub playerClub5_1 = PlayerClub.builder().player(player5).club(club9).order(1).build();
+        PlayerClub playerClub5_2 = PlayerClub.builder().player(player5).club(club10).order(2).build();
 
         Player player6 = Player.builder().name("Player 6").photoUrl("player6.jpg").build();
-        PlayerClub playerClub6_1 = PlayerClub.builder().player(player6).club(club1).build();
+        PlayerClub playerClub6_1 = PlayerClub.builder().player(player6).club(club1).order(1).build();
 
         Player player7 = Player.builder().name("Player 7").photoUrl("player7.jpg").build();
-        PlayerClub playerClub7_1 = PlayerClub.builder().player(player7).club(club2).build();
+        PlayerClub playerClub7_1 = PlayerClub.builder().player(player7).club(club2).order(1).build();
 
         Player player8 = Player.builder().name("Player 8").photoUrl("player8.jpg").build();
-        PlayerClub playerClub8_1 = PlayerClub.builder().player(player8).club(club3).build();
+        PlayerClub playerClub8_1 = PlayerClub.builder().player(player8).club(club3).order(1).build();
 
         Player player9 = Player.builder().name("Player 9").photoUrl("player9.jpg").build();
-        PlayerClub playerClub9_1 = PlayerClub.builder().player(player9).club(club4).build();
+        PlayerClub playerClub9_1 = PlayerClub.builder().player(player9).club(club4).order(1).build();
 
         Player player10 = Player.builder().name("Player 10").photoUrl("player10.jpg").build();
-        PlayerClub playerClub10_1 = PlayerClub.builder().player(player10).club(club5).build();
+        PlayerClub playerClub10_1 = PlayerClub.builder().player(player10).club(club5).order(1).build();
 
         playerRepository.saveAll(Arrays.asList(player1, player2, player3, player4, player5, player6, player7, player8, player9, player10));
 
@@ -148,6 +148,5 @@ class PlayerControllerTest {
         mockMvc.perform(get("/players/random?cnt=7"))
                 .andExpect(status().isBadRequest());
     }
-
 
 }

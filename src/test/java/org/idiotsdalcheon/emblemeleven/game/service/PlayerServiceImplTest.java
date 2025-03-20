@@ -8,13 +8,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,7 +41,7 @@ class PlayerServiceImplTest {
         Player player10 = new Player(10L, "Cristiano Ronaldo4", "ronaldo4.jpg", Arrays.asList());
 
         when(playerRepository.count()).thenReturn(10L);
-        when(playerRepository.findRandomPlayers(PageRequest.of(0, 5)))
+        when(playerRepository.findRandomPlayers(any(Pageable.class)))
                 .thenReturn(new PageImpl<>(Arrays.asList(player1, player2, player3, player4, player5)));
 
         // when
