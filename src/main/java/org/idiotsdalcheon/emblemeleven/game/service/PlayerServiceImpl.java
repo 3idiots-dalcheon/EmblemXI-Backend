@@ -38,7 +38,7 @@ public class PlayerServiceImpl implements PlayerService {
 
                     List<String> clubList = player.getPlayerClubs().stream()
                             .sorted(Comparator.comparing(PlayerClub::getOrder, Comparator.nullsLast(Comparator.naturalOrder())))
-                            .map(pc -> pc.getClub().getName())
+                            .map(pc -> pc.getClub().getEmblemUrl())
                             .collect(Collectors.toList());
 
                     return new PlayerDto(playerName, playerUrl, clubList);
