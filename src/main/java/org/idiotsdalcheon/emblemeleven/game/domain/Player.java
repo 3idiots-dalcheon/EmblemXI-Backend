@@ -24,7 +24,8 @@ public class Player {
     @Column(nullable = false)
     private String photoUrl;
 
-    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OrderBy("order ASC")
     @Builder.Default
     private List<PlayerClub> playerClubs = new ArrayList<>();
 

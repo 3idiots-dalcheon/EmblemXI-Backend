@@ -15,6 +15,9 @@ public class PlayerClub {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "club_order", nullable = false)
+    private int order;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "player_id", nullable = false)
     private Player player;

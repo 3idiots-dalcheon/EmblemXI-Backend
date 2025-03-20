@@ -3,11 +3,13 @@ package org.idiotsdalcheon.emblemeleven.game.service;
 import lombok.RequiredArgsConstructor;
 import org.idiotsdalcheon.emblemeleven.game.dao.PlayerRepository;
 import org.idiotsdalcheon.emblemeleven.game.domain.Player;
+import org.idiotsdalcheon.emblemeleven.game.domain.PlayerClub;
 import org.idiotsdalcheon.emblemeleven.game.dto.PlayerDto;
 import org.idiotsdalcheon.emblemeleven.game.dto.PlayerInfoResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -17,7 +19,6 @@ import java.util.stream.Collectors;
 public class PlayerServiceImpl implements PlayerService {
     private final PlayerRepository playerRepository;
 
-    // 순서 보장 로직 추가
     @Override
     public PlayerInfoResponse getRandomPlayerInfo(int cnt) {
         long total = playerRepository.count();
@@ -36,6 +37,7 @@ public class PlayerServiceImpl implements PlayerService {
                     String playerUrl = player.getPhotoUrl();
 
                     List<String> clubList = player.getPlayerClubs().stream()
+                            .sorted(Comparator.comparing(PlayerClub::getOrder, Comparator.nullsLast(Comparator.naturalOrder())))
                             .map(pc -> pc.getClub().getName())
                             .collect(Collectors.toList());
 
