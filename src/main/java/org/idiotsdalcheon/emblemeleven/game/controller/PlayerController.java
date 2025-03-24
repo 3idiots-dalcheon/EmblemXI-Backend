@@ -2,9 +2,12 @@ package org.idiotsdalcheon.emblemeleven.game.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.idiotsdalcheon.emblemeleven.game.dto.PlayerInfoResponse;
+import org.idiotsdalcheon.emblemeleven.game.dto.PlayerSaveRequest;
 import org.idiotsdalcheon.emblemeleven.game.service.PlayerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,5 +25,11 @@ public class PlayerController {
 
         PlayerInfoResponse response = playerService.getRandomPlayerInfo(cnt);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/playes")
+    public ResponseEntity<?> savePlayers(@RequestBody PlayerSaveRequest playerSaveRequest){
+        ResponseEntity<?> response = playerService.savePlayer(playerSaveRequest);
+        return response;
     }
 }
