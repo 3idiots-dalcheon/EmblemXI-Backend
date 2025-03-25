@@ -7,5 +7,5 @@ import org.springframework.http.ResponseEntity;
 public interface PlayerService {
     public PlayerInfoResponse getRandomPlayerInfo(int cnt);
 
-    public ResponseEntity<?> savePlayer(PlayerSaveRequest playerRequestDto);
+    public ResponseEntity<String> savePlayer(PlayerSaveRequest playerRequestDto);
 }

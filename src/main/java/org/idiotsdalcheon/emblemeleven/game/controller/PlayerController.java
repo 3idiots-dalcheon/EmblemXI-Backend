@@ -27,9 +27,9 @@ public class PlayerController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/playes")
-    public ResponseEntity<?> savePlayers(@RequestBody PlayerSaveRequest playerSaveRequest){
-        ResponseEntity<?> response = playerService.savePlayer(playerSaveRequest);
+    @PostMapping("")
+    public ResponseEntity<String> savePlayers(@RequestBody PlayerSaveRequest playerSaveRequest){
+        ResponseEntity<String> response = playerService.savePlayer(playerSaveRequest);
         return response;
     }
 }

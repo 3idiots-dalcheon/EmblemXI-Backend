@@ -30,7 +30,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     @Transactional
-    public ResponseEntity<?> savePlayer(PlayerSaveRequest playerSaveRequest) {
+    public ResponseEntity<String> savePlayer(PlayerSaveRequest playerSaveRequest) {
         // player 저장
         Player player = Player.builder()
                 .name(playerSaveRequest.getPlayerName())
