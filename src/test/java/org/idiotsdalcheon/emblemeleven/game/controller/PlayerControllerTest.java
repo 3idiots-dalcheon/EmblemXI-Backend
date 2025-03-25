@@ -1,30 +1,41 @@
 package org.idiotsdalcheon.emblemeleven.game.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.idiotsdalcheon.emblemeleven.game.dao.ClubRepository;
 import org.idiotsdalcheon.emblemeleven.game.dao.PlayerClubRepository;
 import org.idiotsdalcheon.emblemeleven.game.dao.PlayerRepository;
 import org.idiotsdalcheon.emblemeleven.game.domain.Club;
 import org.idiotsdalcheon.emblemeleven.game.domain.Player;
 import org.idiotsdalcheon.emblemeleven.game.domain.PlayerClub;
+import org.idiotsdalcheon.emblemeleven.game.dto.ClubDto;
+import org.idiotsdalcheon.emblemeleven.game.dto.PlayerSaveRequest;
 import org.idiotsdalcheon.emblemeleven.game.service.PlayerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class PlayerControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Autowired
     private PlayerService playerService;
@@ -147,6 +158,33 @@ class PlayerControllerTest {
         // when
         mockMvc.perform(get("/players/random?cnt=7"))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void 플레이어_저장_api_테스트() throws Exception {
+        // given
+        PlayerSaveRequest request = new PlayerSaveRequest(
+                "손흥민",
+                "https://example.com/photo.png",
+                Arrays.asList(
+                        new ClubDto("토트넘", "1234", 2),
+                        new ClubDto("레버쿠젠", "5678", 1)
+                )
+        );
+
+        // when
+//        when(playerService.savePlayer(any(PlayerSaveRequest.class)))
+//                .thenReturn(ResponseEntity.ok("저장 완료"));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/players")
+                        .content(objectMapper.writeValueAsBytes(request))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string("저장 완료"));
+
+        // then
+        //verify(playerService, times(1)).savePlayer(any(PlayerSaveRequest.class));
     }
 
 }
