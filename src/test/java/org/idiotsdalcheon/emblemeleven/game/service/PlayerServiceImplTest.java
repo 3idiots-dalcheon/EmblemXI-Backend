@@ -1,27 +1,44 @@
 package org.idiotsdalcheon.emblemeleven.game.service;
 
+import org.idiotsdalcheon.emblemeleven.game.dao.ClubRepository;
+import org.idiotsdalcheon.emblemeleven.game.dao.PlayerClubRepository;
 import org.idiotsdalcheon.emblemeleven.game.dao.PlayerRepository;
+import org.idiotsdalcheon.emblemeleven.game.domain.Club;
 import org.idiotsdalcheon.emblemeleven.game.domain.Player;
+import org.idiotsdalcheon.emblemeleven.game.domain.PlayerClub;
+import org.idiotsdalcheon.emblemeleven.game.dto.ClubDto;
 import org.idiotsdalcheon.emblemeleven.game.dto.PlayerInfoResponse;
+import org.idiotsdalcheon.emblemeleven.game.dto.PlayerSaveRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PlayerServiceImplTest {
 
     @Mock
     private PlayerRepository playerRepository;
+
+    @Mock
+    private ClubRepository clubRepository;
+
+    @Mock
+    private PlayerClubRepository playerClubRepository;
+
 
     @InjectMocks
     private PlayerServiceImpl playerService;
@@ -68,4 +85,48 @@ class PlayerServiceImplTest {
         // then
         assertEquals("현재 선수들 데이터가 없습니다.", exception.getMessage());
     }
+
+    @Test
+    void 정상적으로_선수가_저장된다() {
+        // given
+        ClubDto clubDto1 = new ClubDto("토트넘", "1234", 2);
+        ClubDto clubDto2 = new ClubDto("레버쿠젠", "5678", 1);
+        List<ClubDto> clubDtoList = Arrays.asList(clubDto1, clubDto2);
+
+        PlayerSaveRequest playerSaveRequest = new PlayerSaveRequest(
+                "손흥민",
+                "https://example.com/photo.png",
+                clubDtoList
+        );
+
+
+        // when
+        ResponseEntity<?> response = playerService.savePlayer(playerSaveRequest);
+
+        ArgumentCaptor<Player> playerCaptor = ArgumentCaptor.forClass(Player.class);
+        verify(playerRepository, times(1)).save(playerCaptor.capture());
+        Player savedPlayer = playerCaptor.getValue();
+
+        ArgumentCaptor<Club> clubCaptor = ArgumentCaptor.forClass(Club.class);
+        verify(clubRepository, times(2)).save(clubCaptor.capture());
+        List<Club> saveClub = clubCaptor.getAllValues();
+
+        ArgumentCaptor<PlayerClub> playerClubCaptor = ArgumentCaptor.forClass(PlayerClub.class);
+        verify(playerClubRepository, times(2)).save(playerClubCaptor.capture());
+        List<PlayerClub> savePlayerClub = playerClubCaptor.getAllValues();
+
+        // then
+        assertThat(response).isNotNull();
+        assertThat(response.getBody()).isEqualTo("저장 완료");
+
+        assertThat(savedPlayer.getName()).isEqualTo("손흥민");
+        assertThat(savedPlayer.getPhotoUrl()).isEqualTo("https://example.com/photo.png");
+
+        assertThat(saveClub.get(0).getName()).isEqualTo("토트넘");
+        assertThat(saveClub.get(1).getName()).isEqualTo("레버쿠젠");
+
+        assertThat(savePlayerClub.get(0).getOrder()).isEqualTo(2);
+        assertThat(savePlayerClub.get(1).getOrder()).isEqualTo(1);
+    }
+
 }
