@@ -46,17 +46,17 @@ class PlayerServiceImplTest {
     @Test
     void 랜덤으로_선수들이_조회된다() {
         // given
-        Player player1 = new Player(1L, "Lionel Messi", "messi.jpg", Arrays.asList());
-        Player player2 = new Player(2L, "Cristiano Ronaldo", "ronaldo.jpg", Arrays.asList());
-        Player player3 = new Player(3L, "Lionel Messi1", "messi1.jpg", Arrays.asList());
-        Player player4 = new Player(4L, "Cristiano Ronaldo1", "ronaldo1.jpg", Arrays.asList());
-        Player player5 = new Player(5L, "Lionel Messi2", "messi2.jpg", Arrays.asList());
-        Player player6 = new Player(6L, "Cristiano Ronaldo2", "ronaldo2.jpg", Arrays.asList());
-        Player player7 = new Player(7L, "Lionel Messi3", "messi3.jpg", Arrays.asList());
-        Player player8 = new Player(8L, "Cristiano Ronaldo3", "ronaldo3.jpg", Arrays.asList());
-        Player player9 = new Player(9L, "Lionel Messi4", "messi4.jpg", Arrays.asList());
-        Player player10 = new Player(10L, "Cristiano Ronaldo4", "ronaldo4.jpg", Arrays.asList());
-        Player player11 = new Player(11L, "Cristiano Ronaldo5", "ronaldo4.jpg", Arrays.asList());
+        Player player1 = new Player(1L, "Lionel Messi", "messi.jpg","아르헨티나", Arrays.asList());
+        Player player2 = new Player(2L, "Cristiano Ronaldo", "ronaldo.jpg", "포르투갈", Arrays.asList());
+        Player player3 = new Player(3L, "Lionel Messi1", "messi1.jpg","아르헨티나", Arrays.asList());
+        Player player4 = new Player(4L, "Cristiano Ronaldo1", "ronaldo1.jpg","포르투갈", Arrays.asList());
+        Player player5 = new Player(5L, "Lionel Messi2", "messi2.jpg","포르투갈", Arrays.asList());
+        Player player6 = new Player(6L, "Cristiano Ronaldo2", "ronaldo2.jpg","포르투갈", Arrays.asList());
+        Player player7 = new Player(7L, "Lionel Messi3", "messi3.jpg", "포르투갈", Arrays.asList());
+        Player player8 = new Player(8L, "Cristiano Ronaldo3", "ronaldo3.jpg", "포르투갈", Arrays.asList());
+        Player player9 = new Player(9L, "Lionel Messi4", "messi4.jpg", "포르투갈", Arrays.asList());
+        Player player10 = new Player(10L, "Cristiano Ronaldo4", "ronaldo4.jpg", "포르투갈", Arrays.asList());
+        Player player11 = new Player(11L, "Cristiano Ronaldo5", "ronaldo4.jpg", "포르투갈", Arrays.asList());
 
         when(playerRepository.count()).thenReturn(11L);
         when(playerRepository.findRandomPlayers(any(Pageable.class)))
@@ -97,6 +97,7 @@ class PlayerServiceImplTest {
         PlayerSaveRequest playerSaveRequest = new PlayerSaveRequest(
                 "손흥민",
                 "https://example.com/photo.png",
+                "대한민국",
                 clubDtoList
         );
 

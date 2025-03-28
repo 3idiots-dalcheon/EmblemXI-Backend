@@ -10,5 +10,6 @@ import java.util.List;
 public class PlayerSaveRequest {
     private String playerName;
     private String playerUrl;
+    private String nationality;
     private List<ClubDto> clubs;
 }

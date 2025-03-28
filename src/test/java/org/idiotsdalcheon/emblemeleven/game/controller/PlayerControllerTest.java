@@ -68,26 +68,31 @@ class PlayerControllerTest {
         Player player1 = Player.builder()
                 .name("Lionel Messi")
                 .photoUrl("messi.jpg")
+                .nationality("아르헨티나")
                 .build();
 
         Player player2 = Player.builder()
                 .name("Cristiano Ronaldo")
                 .photoUrl("ronaldo.jpg")
+                .nationality("포르투갈")
                 .build();
 
         Player player3 = Player.builder()
                 .name("Neymar Jr.")
                 .photoUrl("neymar.jpg")
+                .nationality("브라질")
                 .build();
 
         Player player4 = Player.builder()
                 .name("Kylian Mbappé")
                 .photoUrl("mbappe.jpg")
+                .nationality("프랑스")
                 .build();
 
         Player player5 = Player.builder()
                 .name("Robert Lewandowski")
                 .photoUrl("lewandowski.jpg")
+                .nationality("폴란드")
                 .build();
 
         PlayerClub playerClub1_1 = PlayerClub.builder().player(player1).club(club1).order(2).build();
@@ -105,19 +110,19 @@ class PlayerControllerTest {
         PlayerClub playerClub5_1 = PlayerClub.builder().player(player5).club(club9).order(1).build();
         PlayerClub playerClub5_2 = PlayerClub.builder().player(player5).club(club10).order(2).build();
 
-        Player player6 = Player.builder().name("Player 6").photoUrl("player6.jpg").build();
+        Player player6 = Player.builder().name("Player 6").photoUrl("player6.jpg").nationality("프랑스").build();
         PlayerClub playerClub6_1 = PlayerClub.builder().player(player6).club(club1).order(1).build();
 
-        Player player7 = Player.builder().name("Player 7").photoUrl("player7.jpg").build();
+        Player player7 = Player.builder().name("Player 7").photoUrl("player7.jpg").nationality("프랑스").build();
         PlayerClub playerClub7_1 = PlayerClub.builder().player(player7).club(club2).order(1).build();
 
-        Player player8 = Player.builder().name("Player 8").photoUrl("player8.jpg").build();
+        Player player8 = Player.builder().name("Player 8").photoUrl("player8.jpg").nationality("프랑스").build();
         PlayerClub playerClub8_1 = PlayerClub.builder().player(player8).club(club3).order(1).build();
 
-        Player player9 = Player.builder().name("Player 9").photoUrl("player9.jpg").build();
+        Player player9 = Player.builder().name("Player 9").photoUrl("player9.jpg").nationality("프랑스").build();
         PlayerClub playerClub9_1 = PlayerClub.builder().player(player9).club(club4).order(1).build();
 
-        Player player10 = Player.builder().name("Player 10").photoUrl("player10.jpg").build();
+        Player player10 = Player.builder().name("Player 10").photoUrl("player10.jpg").nationality("프랑스").build();
         PlayerClub playerClub10_1 = PlayerClub.builder().player(player10).club(club5).order(1).build();
 
         playerRepository.saveAll(Arrays.asList(player1, player2, player3, player4, player5, player6, player7, player8, player9, player10));
@@ -166,6 +171,7 @@ class PlayerControllerTest {
         PlayerSaveRequest request = new PlayerSaveRequest(
                 "손흥민",
                 "https://example.com/photo.png",
+                "대한민국",
                 Arrays.asList(
                         new ClubDto("토트넘", "1234", 2),
                         new ClubDto("레버쿠젠", "5678", 1)

@@ -24,6 +24,9 @@ public class Player {
     @Column(nullable = false)
     private String photoUrl;
 
+    @Column(nullable = false)
+    private String nationality;
+
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @OrderBy("order ASC")
     @Builder.Default

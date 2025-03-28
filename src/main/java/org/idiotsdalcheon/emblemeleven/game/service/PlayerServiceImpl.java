@@ -35,6 +35,7 @@ public class PlayerServiceImpl implements PlayerService {
         Player player = Player.builder()
                 .name(playerSaveRequest.getPlayerName())
                 .photoUrl(playerSaveRequest.getPlayerUrl())
+                .nationality(playerSaveRequest.getNationality())
                 .build();
         player = playerRepository.save(player);
 
