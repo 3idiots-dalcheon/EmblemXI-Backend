@@ -18,8 +18,8 @@ public class PlayerController {
     private final PlayerService playerService;
 
     @RequestMapping("/random")
-    public ResponseEntity<PlayerInfoResponse> getRandomPlayers(@RequestParam(defaultValue = "10") int cnt) {
-        if (cnt != 5 && cnt != 10) {
+    public ResponseEntity<PlayerInfoResponse> getRandomPlayers(@RequestParam(defaultValue = "11") int cnt) {
+        if (cnt != 5 && cnt != 11) {
             return ResponseEntity.badRequest().body(null);
         }
 

@@ -56,8 +56,9 @@ class PlayerServiceImplTest {
         Player player8 = new Player(8L, "Cristiano Ronaldo3", "ronaldo3.jpg", Arrays.asList());
         Player player9 = new Player(9L, "Lionel Messi4", "messi4.jpg", Arrays.asList());
         Player player10 = new Player(10L, "Cristiano Ronaldo4", "ronaldo4.jpg", Arrays.asList());
+        Player player11 = new Player(11L, "Cristiano Ronaldo5", "ronaldo4.jpg", Arrays.asList());
 
-        when(playerRepository.count()).thenReturn(10L);
+        when(playerRepository.count()).thenReturn(11L);
         when(playerRepository.findRandomPlayers(any(Pageable.class)))
                 .thenReturn(new PageImpl<>(Arrays.asList(player1, player2, player3, player4, player5)));
 
